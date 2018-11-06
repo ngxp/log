@@ -1,29 +1,7 @@
-import { forEach } from 'lodash-es';
+import { Subject } from 'rxjs';
+import { LogManager } from './log-manager';
+import { LogMessage } from './log-message';
 
-// tslint:disable:no-console
+const log$ = new Subject<LogMessage>();
 
-forEach({}, () => null);
-
-export function error(message: string) {
-    console.error(message);
-}
-
-export function warn(message: string) {
-    console.warn(message);
-}
-
-export function log(message: string) {
-    console.log(message);
-}
-
-export function info(message: string) {
-    console.info(message);
-}
-
-export function debug(message: string) {
-    console.debug(message);
-}
-
-export function trace(message: string) {
-    console.trace(message);
-}
+const defaultLogManager = new LogManager();
