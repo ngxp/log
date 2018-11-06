@@ -47,7 +47,8 @@
     "typescript": "2.9.2"
   },
   "dependencies": {
-    "lodash-es": "^4.17.0"
+    "lodash-es": "^4.17.0",
+    "rxjs": "6.3.3"
   },
   "jest": {
     "transform": {

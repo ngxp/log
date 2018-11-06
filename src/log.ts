@@ -1,7 +1,7 @@
-import { Subject } from 'rxjs';
 import { LogManager } from './log-manager';
-import { LogMessage } from './log-message';
-
-const log$ = new Subject<LogMessage>();
 
 const defaultLogManager = new LogManager();
+
+export function getLogger(name?: string) {
+    return defaultLogManager.getLogger(name);
+}
