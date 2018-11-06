@@ -1,19 +1,26 @@
-import { Appender, getLogger, LogLevel } from '.';
+import { consoleAppender, createServerLogAppender, getLogger, LogLevel } from '.';
+import { createConsoleAppender } from './appender';
 
-const appender: Appender = {
-    // tslint:disable-next-line:no-console
-    onPublishLogMessage: (logMessage => console.error(`${logMessage.level.toUpperCase()} ${logMessage.loggerName} ${logMessage.message}`))
-};
+const serverLogAppender = createServerLogAppender({
+    method: 'PUT',
+    url: 'http://example.org',
+    bodyBuilder: logMessages => JSON.stringify({
+        messages: logMessages
+    })
+});
+
+const customConsoleAppender = createConsoleAppender(LogLevel.Info);
 
 const logger = getLogger()
     .setLogLevel(LogLevel.Trace)
-    .registerAppender(appender);
+    .registerAppender(customConsoleAppender);
 
 const { error, trace } = logger;
 
 const childLogger = logger.getLogger('child')
     .setLogLevel(LogLevel.Trace)
-    .registerAppender(appender);
+    .registerAppender(consoleAppender)
+    .registerAppender(serverLogAppender);
 
 const { error: childError, trace: childTrace } = childLogger;
 
