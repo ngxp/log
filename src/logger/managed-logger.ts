@@ -1,41 +1,15 @@
-import { startsWith } from 'lodash';
+import { startsWith } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { Appender, AppenderSubscriptionManager } from './appender';
-import { isEqualOrHigher, LogLevel } from './log-level';
-import { LogManager } from './log-manager';
-import { LogMessage } from './log-message';
+import { Logger } from '.';
+import { Appender, AppenderSubscriptionManager } from '../appender';
+import { isEqualOrHigher, LogLevel } from '../log-level';
+import { LogManager } from '../log-manager';
+import { LogMessage } from '../log-message';
 
-export type LogFn = (message: string) => void;
+type LogFn = (message: string) => void;
 
-export interface Logger {
-    name: string;
-    parent: Logger | null;
-
-    error(message: string): void;
-    warn(message: string): void;
-    log(message: string): void;
-    info(message: string): void;
-    debug(message: string): void;
-    trace(message: string): void;
-
-    setLogLevel(logLevel: LogLevel): this;
-
-    registerAppender(appender: Appender): this;
-    unregisterAppender(appender: Appender): void;
-
-    getLogger(simpleName: string): Logger;
-}
-
-export function createRootLogger(name: string, logManager: LogManager) {
-    return new ManagedLogger(name, null, logManager);
-}
-
-export function createChildLogger(name: string, parent: Logger, logManager: LogManager) {
-    return new ManagedLogger(name, parent, logManager);
-}
-
-class ManagedLogger implements Logger {
+export class ManagedLogger implements Logger {
 
     error: LogFn;
     warn: LogFn;

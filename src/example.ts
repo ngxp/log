@@ -1,5 +1,4 @@
-import { consoleAppender, createServerLogAppender, getLogger, LogLevel } from '.';
-import { createConsoleAppender } from './appender';
+import { consoleAppender, createConsoleAppender, createServerLogAppender, getLogger, LogLevel } from '.';
 
 const serverLogAppender = createServerLogAppender({
     method: 'PUT',
