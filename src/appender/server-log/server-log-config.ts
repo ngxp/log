@@ -1,4 +1,4 @@
-import { isFunction, isString, isUndefined } from 'lodash';
+import { isFunction, isString, isUndefined } from 'lodash-es';
 import { LogMessage } from '../../log-message';
 import { BodyBuilder, defaultBodyBuiler } from './body-builder';
 

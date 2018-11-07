@@ -1,4 +1,4 @@
-import { find, isUndefined, without } from 'lodash';
+import { find, isUndefined, without } from 'lodash-es';
 import { Subscription } from 'rxjs';
 import { Appender } from '.';
 

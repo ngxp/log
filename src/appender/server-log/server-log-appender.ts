@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { bufferTime } from 'rxjs/operators';
 import { LogMessage } from '../../log-message';
 import { BaseAppender } from '../base-appender';
