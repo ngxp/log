@@ -5,11 +5,12 @@ import { BaseAppender } from './base-appender';
 
 describe('BaseAppender', () => {
     let appender: Appender;
-    let logMessageSpy: jest.Mock;
+    let logMessageSpy: jest.Mock<void>;
 
     class TestAppender extends BaseAppender {
         constructor() {
             super();
+            // tslint:disable:no-unsafe-any
             this.logMessage$.subscribe(message => logMessageSpy(message));
         }
     }

@@ -65,6 +65,7 @@ describe('ServerLogAppender', () => {
             advance(bufferTimeSpan);
 
             expect(window.fetch).toHaveBeenCalledTimes(1);
+            // tslint:disable:no-unsafe-any
             expect(fetchSpy.mock.calls[0][1].body).toEqual(expectedBody);
         }));
 
@@ -78,7 +79,9 @@ describe('ServerLogAppender', () => {
             advance(bufferTimeSpan);
 
             expect(window.fetch).toHaveBeenCalledTimes(2);
+            // tslint:disable:no-unsafe-any
             expect(fetchSpy.mock.calls[0][1].body).toEqual(expectedFirstBody);
+            // tslint:disable:no-unsafe-any
             expect(fetchSpy.mock.calls[1][1].body).toEqual(expectedSecondBody);
         }));
 
