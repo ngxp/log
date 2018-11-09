@@ -6,14 +6,18 @@ import { LogMessage } from '../log-message';
 
 export abstract class BaseAppender implements Appender {
 
+    public get logLevel() {
+        return this.level;
+    }
+
     protected logMessage$: Observable<LogMessage>;
-    protected logLevel = LogLevel.Trace;
+    private level = LogLevel.Trace;
 
     private unfilteredLog$ = new Subject<LogMessage>();
 
     constructor() {
         this.logMessage$ = this.unfilteredLog$.pipe(
-            filter(logMessage => isEqualOrHigher(this.logLevel, logMessage.level))
+            filter(logMessage => isEqualOrHigher(this.level, logMessage.level))
         );
     }
 
@@ -22,7 +26,7 @@ export abstract class BaseAppender implements Appender {
     }
 
     setLogLevel(logLevel: LogLevel) {
-        this.logLevel = logLevel;
+        this.level = logLevel;
         return this;
     }
 }

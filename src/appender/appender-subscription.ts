@@ -1,4 +1,4 @@
-import { find, isUndefined, without } from 'lodash-es';
+import { without } from 'lodash-es';
 import { Subscription } from 'rxjs';
 import { Appender } from '.';
 
@@ -18,16 +18,13 @@ export class AppenderSubscriptionManager {
     }
 
     remove(appenderToRemove: Appender) {
-        const appenderSubscription = find(this.subscriptions,
-            ({ appender}) => appender === appenderToRemove
+        const appenderSubscriptions = this.subscriptions
+            .filter(({ appender}) => appender === appenderToRemove);
+
+        appenderSubscriptions.forEach(
+            appenderSubscription => appenderSubscription.subscription.unsubscribe()
         );
 
-        if (isUndefined(appenderSubscription)) {
-            return;
-        }
-
-        appenderSubscription.subscription.unsubscribe();
-
-        this.subscriptions = without(this.subscriptions, appenderSubscription);
+        this.subscriptions = without(this.subscriptions, ...appenderSubscriptions);
     }
 }

@@ -5,11 +5,13 @@ export class ConsoleAppender extends BaseAppender {
 
     constructor() {
         super();
-        this.logMessage$.subscribe(logMessage => this.handleLogMessage(logMessage));
+        this.logMessage$.subscribe(logMessage => {
+            this.handleLogMessage(logMessage);
+        });
     }
 
     private handleLogMessage(logMessage: LogMessage) {
-        console[logMessage.level](logMessage);
+        console[logMessage.level](logMessage.message);
     }
 
 }

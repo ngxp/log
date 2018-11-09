@@ -1,5 +1,4 @@
 import { startsWith } from 'lodash-es';
-import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Logger } from '.';
 import { Appender, AppenderSubscriptionManager } from '../appender';
@@ -8,6 +7,7 @@ import { LogManager } from '../log-manager';
 import { LogMessage } from '../log-message';
 
 type LogFn = (message: string) => void;
+type PublishLogMessageFn = (message: LogMessage) => void;
 
 export class ManagedLogger implements Logger {
 
@@ -26,7 +26,10 @@ export class ManagedLogger implements Logger {
         public readonly parent: Logger | null,
         private logManager: LogManager
     ) {
-        const createLogFn = createLogFnFactory(this.name, this.logManager.logMessage$);
+        const createLogFn = createLogFnFactory(
+            this.name,
+            logMessage => this.logManager.publishLogMessage(logMessage)
+        );
 
         this.error = createLogFn(LogLevel.Error);
         this.warn = createLogFn(LogLevel.Warn);
@@ -38,7 +41,7 @@ export class ManagedLogger implements Logger {
 
     getLogger(simpleName: string): Logger {
         return this.logManager.getOrCreateLogger(
-            getLoggerName(simpleName, this),
+            simpleName,
             this
         );
     }
@@ -65,14 +68,6 @@ export class ManagedLogger implements Logger {
     }
 }
 
-function getLoggerName(simpleName: string, parent: Logger) {
-    return [
-        parent.name,
-        simpleName
-    ]
-        .join('.');
-}
-
-function createLogFnFactory(name: string, logMessages$: Subject<LogMessage>): (level: LogLevel) => LogFn {
-    return (level: LogLevel) => (message: string) => logMessages$.next({ level, loggerName: name, message });
+function createLogFnFactory(name: string, publishLogMessage: PublishLogMessageFn): (level: LogLevel) => LogFn {
+    return (level: LogLevel) => (message: string) => publishLogMessage({ level, loggerName: name, message });
 }

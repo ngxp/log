@@ -1,17 +1,21 @@
 import { isUndefined } from 'lodash-es';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { LogMessage } from './log-message';
 import { createChildLogger, createRootLogger, Logger } from './logger';
+import { getLoggerName } from './logger/logger-name';
 
 const ROOT_LOGGER_NAME = '';
 
 export class LogManager {
 
-    public readonly logMessage$ = new Subject<LogMessage>();
+    public readonly logMessage$: Observable<LogMessage>;
+
+    private readonly log$ = new Subject<LogMessage>();
 
     private loggers: { [key: string]: Logger } = {};
 
     constructor() {
+        this.logMessage$ = this.log$.asObservable();
         this.addLogger(createRootLogger(ROOT_LOGGER_NAME, this));
     }
 
@@ -19,18 +23,23 @@ export class LogManager {
         return this.loggers[name];
     }
 
-    getOrCreateLogger(name: string, parent: Logger): Logger {
+    getOrCreateLogger(simpleName: string, parent: Logger): Logger {
+        const name = getLoggerName(simpleName, parent);
         let logger = this.getLogger(name);
 
         if (isUndefined(logger)) {
-            logger = this.createChildLogger(name, parent);
+            logger = this.createChildLogger(simpleName, parent);
         }
 
         return logger;
     }
 
-    private createChildLogger(name: string, parent: Logger): Logger {
-        const logger = createChildLogger(name, parent, this);
+    publishLogMessage(logMessage: LogMessage) {
+        this.log$.next(logMessage);
+    }
+
+    private createChildLogger(simpleName: string, parent: Logger): Logger {
+        const logger = createChildLogger(simpleName, parent, this);
         this.addLogger(logger);
         return logger;
     }

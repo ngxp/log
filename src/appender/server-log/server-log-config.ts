@@ -1,6 +1,6 @@
 import { isFunction, isString, isUndefined } from 'lodash-es';
 import { LogMessage } from '../../log-message';
-import { BodyBuilder, defaultBodyBuiler } from './body-builder';
+import { BodyBuilder, defaultBodyBuilder } from './body-builder';
 
 export type ServerLogConfigInit = string | Partial<ServerLogConfig> | ServerLogConfigFactory;
 
@@ -17,7 +17,7 @@ export function applyDefaultConfig(partialConfig: Partial<ServerLogConfig>): Ser
     const config: Partial<ServerLogConfig> = {
         method: 'POST',
         headers: new Headers({}),
-        bodyBuilder: defaultBodyBuiler,
+        bodyBuilder: defaultBodyBuilder,
         ...partialConfig
     };
 

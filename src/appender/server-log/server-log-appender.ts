@@ -1,5 +1,5 @@
 import { isEmpty } from 'lodash-es';
-import { bufferTime } from 'rxjs/operators';
+import { bufferTime, filter } from 'rxjs/operators';
 import { LogMessage } from '../../log-message';
 import { BaseAppender } from '../base-appender';
 import { applyDefaultConfig, ServerLogConfigFactory, ServerLogConfigInit, toConfigFactory } from './server-log-config';
@@ -15,16 +15,13 @@ export class ServerLogAppender extends BaseAppender {
         super();
         this.configFactory = toConfigFactory(serverLogConfig);
         this.logMessage$.pipe(
-            bufferTime(bufferTimeSpan)
+            bufferTime(bufferTimeSpan),
+            filter(logMessages => !isEmpty(logMessages))
         )
             .subscribe(logMessages => this.handleLogMessage(logMessages));
     }
 
     private handleLogMessage(logMessages: LogMessage[]) {
-        if (isEmpty(logMessages)) {
-            return;
-        }
-
         const { url, method, bodyBuilder, headers } = applyDefaultConfig(
             this.configFactory(logMessages)
         );
@@ -36,6 +33,6 @@ export class ServerLogAppender extends BaseAppender {
         })
             .then(() => undefined)
             // tslint:disable-next-line:no-console
-            .catch(error => console.error(error));
+            .catch(error => console.warn(error));
     }
 }
