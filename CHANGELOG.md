@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/ngxp/log/compare/v0.1.0...v0.2.0) (2018-11-12)
+
+
+### Bug Fixes
+
+* expose log functions ([4c69c2f](https://github.com/ngxp/log/commit/4c69c2f))
+
+
+### Features
+
+* set application/json as default content type for server log requests ([9cbb89d](https://github.com/ngxp/log/commit/9cbb89d))
+* update default body builder to include logger name in message ([e8587e5](https://github.com/ngxp/log/commit/e8587e5))
+
+
+
 <a name="0.1.0"></a>
 # [0.1.0](https://github.com/ngxp/log/compare/v0.0.6...v0.1.0) (2018-11-12)
 
