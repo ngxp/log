@@ -1,12 +1,14 @@
-import { consoleAppender, createConsoleAppender, getLogger, LogLevel } from '.';
-import { spyOnConsoleMethods } from './test';
+import { Appender, consoleAppender, createConsoleAppender, getLogger, LogLevel } from '.';
+import { createMockAppender, debugMessage, errorMessage, infoMessage, logMessage, spyOnConsoleMethods, traceMessage, warnMessage } from './test';
 
 // tslint:disable:no-console
 
 describe('@ngxp/log', () => {
+    let mockAppender: Appender;
 
     beforeEach(() => {
         spyOnConsoleMethods();
+        mockAppender = createMockAppender();
     });
 
     it('integration test', () => {
@@ -36,5 +38,26 @@ describe('@ngxp/log', () => {
         expect(console.info).toHaveBeenCalledTimes(2);
         expect(console.info).toHaveBeenNthCalledWith(1, 'root info');
         expect(console.info).toHaveBeenNthCalledWith(2, 'child info');
+    });
+
+    it('exposes the log methods as functions', () => {
+        const logger = getLogger()
+            .registerAppender(mockAppender)
+            .setLogLevel(LogLevel.Trace);
+
+        logger.error(errorMessage.message);
+        logger.warn(warnMessage.message);
+        logger.log(logMessage.message);
+        logger.info(infoMessage.message);
+        logger.debug(debugMessage.message);
+        logger.trace(traceMessage.message);
+
+        // tslint:disable:no-magic-numbers
+        expect(mockAppender.onPublishLogMessage).toHaveBeenNthCalledWith(1, errorMessage);
+        expect(mockAppender.onPublishLogMessage).toHaveBeenNthCalledWith(2, warnMessage);
+        expect(mockAppender.onPublishLogMessage).toHaveBeenNthCalledWith(3, logMessage);
+        expect(mockAppender.onPublishLogMessage).toHaveBeenNthCalledWith(4, infoMessage);
+        expect(mockAppender.onPublishLogMessage).toHaveBeenNthCalledWith(5, debugMessage);
+        expect(mockAppender.onPublishLogMessage).toHaveBeenNthCalledWith(6, traceMessage);
     });
 });
