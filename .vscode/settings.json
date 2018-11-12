@@ -1,7 +1,0 @@
-{
-  "files.exclude": {
-    "dist": "explorerExcludedFiles",
-    "node_modules": "explorerExcludedFiles",
-    "**/*.spec.ts": "explorerExcludedFiles"
-  }
-}
