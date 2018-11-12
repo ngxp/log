@@ -3,7 +3,7 @@ import { Appender } from '../appender';
 import { LogLevel, logLevels } from '../log-level';
 import { LogManager } from '../log-manager';
 import { LogMessage } from '../log-message';
-import { childLoggerSimpleName, createMockAppender, debugMessage, errorMessage, grandChildLoggerSimpleName, infoMessage, logMessage, logMessagesByLevel, rootLoggerSimpleName, traceMessage, warnMessage } from '../test';
+import { childLoggerSimpleName, createMockAppender, debugMessage, errorMessage, grandChildLoggerSimpleName, infoMessage, logMessage, logMessagesByLevel, mockTimestamp, rootLoggerSimpleName, traceMessage, warnMessage } from '../test';
 import { getLoggerName } from './logger-name';
 import { ManagedLogger } from './managed-logger';
 
@@ -20,6 +20,7 @@ describe('ManagedLogger', () => {
         childLogger = rootLogger.getLogger(childLoggerSimpleName);
         grandChildLogger = childLogger.getLogger(grandChildLoggerSimpleName);
         mockAppender = createMockAppender();
+        mockTimestamp();
     });
 
     logLevels.forEach(logMethod => {

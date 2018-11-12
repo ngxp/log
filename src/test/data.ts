@@ -8,12 +8,14 @@ export const childLoggerName = '.child';
 export const grandChildLoggerSimpleName = 'grandChild';
 export const grandChildLoggerName = '.child.grandChild';
 
-export const errorMessage: LogMessage = { level: LogLevel.Error, loggerName: rootLoggerSimpleName, message: 'some error message' };
-export const warnMessage: LogMessage = { level: LogLevel.Warn, loggerName: rootLoggerSimpleName, message: 'some warn message' };
-export const logMessage: LogMessage = { level: LogLevel.Log, loggerName: rootLoggerSimpleName, message: 'some log message' };
-export const infoMessage: LogMessage = { level: LogLevel.Info, loggerName: rootLoggerSimpleName, message: 'some info message' };
-export const debugMessage: LogMessage = { level: LogLevel.Debug, loggerName: rootLoggerSimpleName, message: 'some debug message' };
-export const traceMessage: LogMessage = { level: LogLevel.Trace, loggerName: rootLoggerSimpleName, message: 'some trace message' };
+export const timestamp = '2018-11-12T15:46:57.104Z';
+
+export const errorMessage: LogMessage = { level: LogLevel.Error, loggerName: rootLoggerSimpleName, message: 'some error message', timestamp };
+export const warnMessage: LogMessage = { level: LogLevel.Warn, loggerName: rootLoggerSimpleName, message: 'some warn message', timestamp };
+export const logMessage: LogMessage = { level: LogLevel.Log, loggerName: rootLoggerSimpleName, message: 'some log message', timestamp };
+export const infoMessage: LogMessage = { level: LogLevel.Info, loggerName: rootLoggerSimpleName, message: 'some info message', timestamp };
+export const debugMessage: LogMessage = { level: LogLevel.Debug, loggerName: rootLoggerSimpleName, message: 'some debug message', timestamp };
+export const traceMessage: LogMessage = { level: LogLevel.Trace, loggerName: rootLoggerSimpleName, message: 'some trace message', timestamp };
 
 export const logMessages: LogMessage[] = [
     errorMessage,

@@ -1,6 +1,7 @@
 import { Appender } from '.';
 import { debugMessage, errorMessage, infoMessage, logMessage, spyOnConsoleMethods, traceMessage, warnMessage } from '../test';
 import { ConsoleAppender } from './console-appender';
+import { format } from './message-formatter';
 
 describe('ConsoleAppender', () => {
     let appender: Appender;
@@ -20,12 +21,12 @@ describe('ConsoleAppender', () => {
             appender.onPublishLogMessage(traceMessage);
 
             // tslint:disable:no-console
-            expect(console.error).toHaveBeenCalledWith(errorMessage.message);
-            expect(console.warn).toHaveBeenCalledWith(warnMessage.message);
-            expect(console.log).toHaveBeenCalledWith(logMessage.message);
-            expect(console.info).toHaveBeenCalledWith(infoMessage.message);
-            expect(console.debug).toHaveBeenCalledWith(debugMessage.message);
-            expect(console.trace).toHaveBeenCalledWith(traceMessage.message);
+            expect(console.error).toHaveBeenCalledWith(format(errorMessage));
+            expect(console.warn).toHaveBeenCalledWith(format(warnMessage));
+            expect(console.log).toHaveBeenCalledWith(format(logMessage));
+            expect(console.info).toHaveBeenCalledWith(format(infoMessage));
+            expect(console.debug).toHaveBeenCalledWith(format(debugMessage));
+            expect(console.trace).toHaveBeenCalledWith(format(traceMessage));
         });
     });
 });

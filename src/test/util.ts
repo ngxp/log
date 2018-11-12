@@ -1,6 +1,8 @@
 import { noop } from 'lodash-es';
 import { Appender } from '..';
+import * as date from '../date';
 import { LogLevel } from '../log-level';
+import { timestamp } from './data';
 
 export function spyOnConsoleMethods() {
     return {
@@ -18,6 +20,10 @@ export function spyOnFetch() {
     spy.mockReturnValue(Promise.resolve());
     spy.mockClear();
     return spy;
+}
+
+export function mockTimestamp() {
+    jest.spyOn(date, 'getTimestamp').mockReturnValue(timestamp);
 }
 
 export function createMockAppender(): Appender {

@@ -2,6 +2,7 @@ import { startsWith } from 'lodash-es';
 import { filter } from 'rxjs/operators';
 import { Logger } from '.';
 import { Appender, AppenderSubscriptionManager } from '../appender';
+import { getTimestamp } from '../date';
 import { isEqualOrHigher, LogLevel } from '../log-level';
 import { LogManager } from '../log-manager';
 import { LogMessage } from '../log-message';
@@ -69,5 +70,10 @@ export class ManagedLogger implements Logger {
 }
 
 function createLogFnFactory(name: string, publishLogMessage: PublishLogMessageFn): (level: LogLevel) => LogFn {
-    return (level: LogLevel) => (message: string) => publishLogMessage({ level, loggerName: name, message });
+    return (level: LogLevel) => (message: string) => publishLogMessage({
+        loggerName: name,
+        timestamp: getTimestamp(),
+        level,
+        message
+    });
 }

@@ -1,5 +1,5 @@
 import { Appender, consoleAppender, createConsoleAppender, getLogger, LogLevel } from '.';
-import { createMockAppender, debugMessage, errorMessage, infoMessage, logMessage, spyOnConsoleMethods, traceMessage, warnMessage } from './test';
+import { createMockAppender, debugMessage, errorMessage, infoMessage, logMessage, mockTimestamp, spyOnConsoleMethods, timestamp, traceMessage, warnMessage } from './test';
 
 // tslint:disable:no-console
 
@@ -9,6 +9,7 @@ describe('@ngxp/log', () => {
     beforeEach(() => {
         spyOnConsoleMethods();
         mockAppender = createMockAppender();
+        mockTimestamp();
     });
 
     it('integration test', () => {
@@ -32,12 +33,12 @@ describe('@ngxp/log', () => {
         libInfo('lib info');
 
         expect(console.error).toHaveBeenCalledTimes(3);
-        expect(console.error).toHaveBeenNthCalledWith(1, 'root error');
-        expect(console.error).toHaveBeenNthCalledWith(2, 'myLib lib error');
-        expect(console.error).toHaveBeenNthCalledWith(3, 'myLib lib error');
+        expect(console.error).toHaveBeenNthCalledWith(1, `${timestamp} root error`);
+        expect(console.error).toHaveBeenNthCalledWith(2, `${timestamp} myLib lib error`);
+        expect(console.error).toHaveBeenNthCalledWith(3, `${timestamp} myLib lib error`);
         expect(console.info).toHaveBeenCalledTimes(2);
-        expect(console.info).toHaveBeenNthCalledWith(1, 'root info');
-        expect(console.info).toHaveBeenNthCalledWith(2, 'myLib lib info');
+        expect(console.info).toHaveBeenNthCalledWith(1, `${timestamp} root info`);
+        expect(console.info).toHaveBeenNthCalledWith(2, `${timestamp} myLib lib info`);
     });
 
     it('exposes the log methods as functions', () => {
