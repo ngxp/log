@@ -13,4 +13,4 @@ deploy:
   on:
     tags: true
     repo: ngxp/log
-    skip_cleanup: true
+  skip_cleanup: true
