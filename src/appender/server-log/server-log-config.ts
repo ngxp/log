@@ -16,7 +16,9 @@ export interface ServerLogConfig {
 export function applyDefaultConfig(partialConfig: Partial<ServerLogConfig>): ServerLogConfig {
     const config: Partial<ServerLogConfig> = {
         method: 'POST',
-        headers: new Headers({}),
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        }),
         bodyBuilder: defaultBodyBuilder,
         ...partialConfig
     };
