@@ -1,5 +1,6 @@
 import { LogMessage } from '..';
 import { BaseAppender } from './base-appender';
+import { format } from './message-formatter';
 
 export class ConsoleAppender extends BaseAppender {
 
@@ -11,7 +12,7 @@ export class ConsoleAppender extends BaseAppender {
     }
 
     private handleLogMessage(logMessage: LogMessage) {
-        console[logMessage.level](logMessage.message);
+        console[logMessage.level](format(logMessage));
     }
 
 }

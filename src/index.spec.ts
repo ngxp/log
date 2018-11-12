@@ -20,24 +20,24 @@ describe('@ngxp/log', () => {
 
         const { error, info } = logger;
 
-        const childLogger = logger.getLogger('child')
+        const libLogger = logger.getLogger('myLib')
             .setLogLevel(LogLevel.Warn)
             .registerAppender(consoleAppender);
 
-        const { error: childError, info: childInfo } = childLogger;
+        const { error: libError, info: libInfo } = libLogger;
 
         error('root error');
         info('root info');
-        childError('child error');
-        childInfo('child info');
+        libError('lib error');
+        libInfo('lib info');
 
         expect(console.error).toHaveBeenCalledTimes(3);
         expect(console.error).toHaveBeenNthCalledWith(1, 'root error');
-        expect(console.error).toHaveBeenNthCalledWith(2, 'child error');
-        expect(console.error).toHaveBeenNthCalledWith(3, 'child error');
+        expect(console.error).toHaveBeenNthCalledWith(2, 'myLib lib error');
+        expect(console.error).toHaveBeenNthCalledWith(3, 'myLib lib error');
         expect(console.info).toHaveBeenCalledTimes(2);
         expect(console.info).toHaveBeenNthCalledWith(1, 'root info');
-        expect(console.info).toHaveBeenNthCalledWith(2, 'child info');
+        expect(console.info).toHaveBeenNthCalledWith(2, 'myLib lib info');
     });
 
     it('exposes the log methods as functions', () => {
