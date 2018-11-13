@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/ngxp/log/compare/v0.2.0...v0.3.0) (2018-11-13)
+
+
+### Features
+
+* add logger name to console log messages ([760703a](https://github.com/ngxp/log/commit/760703a))
+* add timestamp to default server log request body ([23cf984](https://github.com/ngxp/log/commit/23cf984))
+* add timestamp to log messages ([30cd0a5](https://github.com/ngxp/log/commit/30cd0a5))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/ngxp/log/compare/v0.1.0...v0.2.0) (2018-11-12)
 
