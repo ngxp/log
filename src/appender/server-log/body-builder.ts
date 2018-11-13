@@ -7,7 +7,8 @@ export const defaultBodyBuilder: BodyBuilder = (logMessages: LogMessage[]) => {
     const messages = logMessages
         .map(message => ({
             level: message.level,
-            message: format(message)
+            message: format(message),
+            timestamp: message.timestamp
         }));
     return JSON.stringify(messages);
 };
