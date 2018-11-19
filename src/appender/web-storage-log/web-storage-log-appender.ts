@@ -21,7 +21,7 @@ export class WebStorageLogAppender extends BaseAppender {
 
     private get logMessages(): LogMessage[] {
         const messages = this.storage.getItem(this.config.storageItemKey);
-        return isNull(messages) ? [] : JSON.parse(messages);
+        return isNull(messages) ? [] : <LogMessage[]> JSON.parse(messages);
     }
 
     private set logMessages(logMessages: LogMessage[]) {

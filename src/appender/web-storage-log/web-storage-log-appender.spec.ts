@@ -1,6 +1,7 @@
 import { times } from 'lodash-es';
 import { WebStorageLogAppender } from '.';
 import { Appender } from '..';
+import { LogMessage } from '../../log-message';
 import { errorMessage, logMessage, maxLogSize, spyOnLocalStorage, spyOnSessionStorage, webStorageLogConfig } from '../../test';
 import { StorageType } from './web-storage-log-config';
 
@@ -45,7 +46,7 @@ describe('WebStorageLogAppender', () => {
                         times(maxLogSize, () => appender.onPublishLogMessage(logMessage));
                         appender.onPublishLogMessage(errorMessage);
 
-                        const storedLogMessages = JSON.parse(<string> window[storageType].getItem(webStorageLogConfig.storageItemKey));
+                        const storedLogMessages: LogMessage[] = <LogMessage[]> JSON.parse(<string> window[storageType].getItem(webStorageLogConfig.storageItemKey));
 
                         expect(storedLogMessages).toHaveLength(maxLogSize);
                         expect(storedLogMessages[maxLogSize - 1]).toEqual(errorMessage);
