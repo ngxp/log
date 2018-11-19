@@ -39,6 +39,13 @@ describe('appenderFactory', () => {
             expect(appender).toBeInstanceOf(WebStorageLogAppender);
             expect(appender.logLevel).toBe(LogLevel.Trace);
         });
+
+        it('creates a new server log appender with the default configuration and log level if nothing is given', () => {
+            const appender = createWebStorageLogAppender();
+
+            expect(appender).toBeInstanceOf(WebStorageLogAppender);
+            expect(appender.logLevel).toBe(LogLevel.Trace);
+        });
     });
 
     describe('createServerLogAppender', () => {

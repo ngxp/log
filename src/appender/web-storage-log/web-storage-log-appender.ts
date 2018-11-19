@@ -29,7 +29,7 @@ export class WebStorageLogAppender extends BaseAppender {
     }
 
     constructor(
-        webStorageLogConfig: WebStorageLogConfig
+        webStorageLogConfig: Partial<WebStorageLogConfig>
     ) {
         super();
         this.config = applyDefaultConfig(webStorageLogConfig);

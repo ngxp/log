@@ -12,7 +12,7 @@ export function createConsoleAppender(logLevel = LogLevel.Trace): Appender {
     return appender;
 }
 
-export function createWebStorageLogAppender(webStorageLogConfig: WebStorageLogConfig, logLevel = LogLevel.Trace): Appender {
+export function createWebStorageLogAppender(webStorageLogConfig: Partial<WebStorageLogConfig> = {}, logLevel = LogLevel.Trace): Appender {
     const appender = new WebStorageLogAppender(webStorageLogConfig);
     appender.setLogLevel(logLevel);
     return appender;
