@@ -1,5 +1,6 @@
 import { BodyBuilder, LogLevel, LogMessage } from '..';
 import { ServerLogConfig } from '../appender/server-log/server-log-config';
+import { StorageType, WebStorageLogConfig } from '../appender/web-storage-log/web-storage-log-config';
 
 export const rootLoggerSimpleName = '';
 export const rootLoggerName = '';
@@ -52,3 +53,13 @@ export const serverLogConfig: ServerLogConfig = {
 };
 
 export const bufferTimeSpan = 100;
+
+export const storageType = StorageType.SessionStorage;
+export const maxLogSize = 5;
+export const storageItemKey = 'somekey';
+
+export const webStorageLogConfig: WebStorageLogConfig = {
+    storageType,
+    maxLogSize,
+    storageItemKey
+};

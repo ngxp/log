@@ -1,5 +1,6 @@
 import { Appender, consoleAppender, createConsoleAppender, getLogger, LogLevel } from '.';
-import { createMockAppender, debugMessage, errorMessage, infoMessage, logMessage, mockTimestamp, spyOnConsoleMethods, timestamp, traceMessage, warnMessage } from './test';
+import { createWebStorageLogAppender } from './appender';
+import { createMockAppender, debugMessage, errorMessage, infoMessage, logMessage, mockTimestamp, spyOnConsoleMethods, spyOnSessionStorage, timestamp, traceMessage, warnMessage, webStorageLogConfig } from './test';
 
 // tslint:disable:no-console
 
@@ -7,6 +8,7 @@ describe('@ngxp/log', () => {
     let mockAppender: Appender;
 
     beforeEach(() => {
+        spyOnSessionStorage();
         spyOnConsoleMethods();
         mockAppender = createMockAppender();
         mockTimestamp();
@@ -14,6 +16,7 @@ describe('@ngxp/log', () => {
 
     it('integration test', () => {
         const customConsoleAppender = createConsoleAppender(LogLevel.Info);
+        const webStorageLogAppender = createWebStorageLogAppender(webStorageLogConfig, LogLevel.Error);
 
         const logger = getLogger()
             .setLogLevel(LogLevel.Trace)
@@ -23,7 +26,8 @@ describe('@ngxp/log', () => {
 
         const libLogger = logger.getLogger('myLib')
             .setLogLevel(LogLevel.Warn)
-            .registerAppender(consoleAppender);
+            .registerAppender(consoleAppender)
+            .registerAppender(webStorageLogAppender);
 
         const { error: libError, info: libInfo } = libLogger;
 
@@ -39,6 +43,13 @@ describe('@ngxp/log', () => {
         expect(console.info).toHaveBeenCalledTimes(2);
         expect(console.info).toHaveBeenNthCalledWith(1, `${timestamp} root info`);
         expect(console.info).toHaveBeenNthCalledWith(2, `${timestamp} myLib lib info`);
+        expect(window.sessionStorage.setItem).toHaveBeenCalledTimes(1);
+        expect(window.sessionStorage.setItem).toHaveBeenNthCalledWith(1, webStorageLogConfig.storageItemKey, JSON.stringify([{
+            loggerName: '.myLib',
+            timestamp,
+            level: LogLevel.Error,
+            message: 'lib error'
+        }]));
     });
 
     it('exposes the log methods as functions', () => {

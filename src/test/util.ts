@@ -22,6 +22,14 @@ export function spyOnFetch() {
     return spy;
 }
 
+export function spyOnLocalStorage() {
+    return spyOnStorage(window.localStorage);
+}
+
+export function spyOnSessionStorage() {
+    return spyOnStorage(window.sessionStorage);
+}
+
 export function mockTimestamp() {
     jest.spyOn(date, 'getTimestamp').mockReturnValue(timestamp);
 }
@@ -32,4 +40,11 @@ export function createMockAppender(): Appender {
         onPublishLogMessage: jest.fn(),
         setLogLevel: jest.fn()
     };
+}
+
+function spyOnStorage(storage: Storage) {
+    const spy = jest.spyOn(storage, 'setItem');
+    spy.mockClear();
+    storage.clear();
+    return spy;
 }
