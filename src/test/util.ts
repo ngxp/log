@@ -17,7 +17,7 @@ export function spyOnConsoleMethods() {
 
 export function spyOnFetch() {
     const spy = jest.spyOn(window, 'fetch');
-    spy.mockReturnValue(Promise.resolve());
+    spy.mockReturnValue(Promise.resolve<any>(undefined));
     spy.mockClear();
     return spy;
 }
