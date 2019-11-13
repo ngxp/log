@@ -1,6 +1,14 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.5.1](https://github.com/ngxp/log/compare/v0.5.0...v0.5.1) (2019-11-13)
+
+
+### Bug Fixes
+
+* exclude tests from deployment ([4f9d412](https://github.com/ngxp/log/commit/4f9d4128694b29f2f787a97360c6c8b0970be331))
+* update dependencies to fix security vulnerabilities ([4c2a77a](https://github.com/ngxp/log/commit/4c2a77a6697432f58bd94366afdfe179da187b6b))
 
 <a name="0.5.0"></a>
 # [0.5.0](https://github.com/ngxp/log/compare/v0.4.1...v0.5.0) (2018-11-19)
