@@ -1,4 +1,4 @@
-import { times } from 'lodash-es';
+import { times } from 'lodash';
 import { WebStorageLogAppender } from '.';
 import { Appender } from '..';
 import { LogMessage } from '../../log-message';

@@ -1,4 +1,4 @@
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { Subscription } from 'rxjs';
 import { AppenderSubscriptionManager } from '.';
 import { createMockAppender } from '../test';

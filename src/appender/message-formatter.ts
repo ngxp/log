@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash-es';
+import { isEmpty } from 'lodash';
 import { LogMessage } from '../log-message';
 
 export function format(logMessage: LogMessage) {

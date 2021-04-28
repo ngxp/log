@@ -1,4 +1,4 @@
-import { isNull } from 'lodash-es';
+import { isNull } from 'lodash';
 import { Logger } from '../logger';
 
 const SEPARATOR = '.';

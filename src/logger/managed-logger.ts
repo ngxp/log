@@ -1,4 +1,4 @@
-import { startsWith } from 'lodash-es';
+import { startsWith } from 'lodash';
 import { filter } from 'rxjs/operators';
 import { Logger } from '.';
 import { Appender, AppenderSubscriptionManager } from '../appender';

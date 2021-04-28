@@ -1,4 +1,4 @@
-import { isUndefined } from 'lodash-es';
+import { isUndefined } from 'lodash';
 import { Observable, Subject } from 'rxjs';
 import { LogMessage } from './log-message';
 import { createChildLogger, createRootLogger, Logger } from './logger';

@@ -1,4 +1,4 @@
-import { without } from 'lodash-es';
+import { without } from 'lodash';
 import { Subscription } from 'rxjs';
 import { Appender } from '.';
 

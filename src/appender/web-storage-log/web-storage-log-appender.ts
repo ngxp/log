@@ -1,4 +1,4 @@
-import { isNull, takeRight } from 'lodash-es';
+import { isNull, takeRight } from 'lodash';
 import { LogMessage } from '../../log-message';
 import { BaseAppender } from '../base-appender';
 import { applyDefaultConfig, StorageType, WebStorageLogConfig } from './web-storage-log-config';

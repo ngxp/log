@@ -1,4 +1,4 @@
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { Appender } from '..';
 import * as date from '../date';
 import { LogLevel } from '../log-level';

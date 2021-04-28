@@ -1,4 +1,4 @@
-import { takeWhile } from 'lodash-es';
+import { takeWhile } from 'lodash';
 
 export enum LogLevel {
     Error = 'error',
