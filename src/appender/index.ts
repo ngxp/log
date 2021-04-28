@@ -4,7 +4,7 @@ import { LogMessage } from '../log-message';
 export * from './appender-factory';
 export { AppenderSubscriptionManager } from './appender-subscription';
 export { BodyBuilder, ServerLogConfig, ServerLogConfigFactory } from './server-log';
-export { WebStorageLogConfig } from './web-storage-log';
+export { WebStorageLogConfig, StorageType } from './web-storage-log';
 
 export interface Appender {
     readonly logLevel: LogLevel;
